@@ -15,5 +15,8 @@ const firebaseConfig = {
 //const app = initializeApp(firebaseConfig);
 firebase.initializeApp(firebaseConfig);
 
+export const firebaseInstance = firebase;
+// Instance만 export
+
 export const authService = firebase.auth();
 //firebase 관련 모든 것을 export 하지말고 서비스만 export
