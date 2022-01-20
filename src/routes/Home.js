@@ -1,10 +1,17 @@
 import { useState } from "react";
 import React from "react";
+import { dbService } from "fbase";
 
 const Home = () => {
   const [nweet, setNweet] = useState("");
-  const onSubmit = (event) => {
+  const onSubmit = async (event) => {
     event.preventDefault();
+    await dbService.collection("nweets").add({
+      nweet,
+      createdAt: Date.now(),
+    });
+    setNweet("");
+    // add ; 명시된 데이터를 담은 새로운 documents를 collection에 추가 + id는 자동
   };
   const onChange = (event) => {
     const {
