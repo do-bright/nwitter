@@ -18,6 +18,7 @@ const AppRouter = ({ isLoggedIn, userObj }) => {
       {isLoggedIn && <Navigation />}
       <Switch>
         {isLoggedIn ? (
+          // 홈 : path="/"
           <>
             <Route exact path="/">
               <Home userObj={userObj} />
