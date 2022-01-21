@@ -7,19 +7,17 @@ const Home = ({ userObj }) => {
   console.log(userObj);
   const [nweet, setNweet] = useState("");
   const [nweets, setNweets] = useState([]);
-  console.log("getNweets임");
-  const getNweets = async () => {
-    const dbNweets = await dbService.collection("nweets").get();
-    dbNweets.forEach((document) => {
-      const nweetObject = {
-        ...document.data(),
-        id: document.id,
-      };
-      setNweets((prev) => [nweetObject, ...prev]);
-    });
-  };
   useEffect(() => {
-    getNweets();
+    dbService
+      .collection("nweets")
+      .orderBy("createdAt", "desc")
+      .onSnapshot((snapshot) => {
+        const nweetArray = snapshot.docs.map((doc) => ({
+          id: doc.id,
+          ...doc.data(),
+        })); // 트윗들 리스트들
+        setNweets(nweetArray);
+      });
   }, []);
   const onSubmit = async (event) => {
     event.preventDefault();
@@ -32,14 +30,14 @@ const Home = ({ userObj }) => {
     setNweet("");
     // add ; 명시된 데이터를 담은 새로운 documents를 collection에 추가 + id는 자동
   };
+
   const onChange = (event) => {
     const {
       target: { value },
     } = event;
     setNweet(value);
   };
-  console.log("Nweets임");
-  console.log(nweets);
+
   return (
     <div>
       <form onSubmit={onSubmit}>
@@ -52,6 +50,13 @@ const Home = ({ userObj }) => {
         />
         <input type="submit" value="Nweet" />
       </form>
+      <div>
+        {nweets.map((nweet) => (
+          <div key={nweet.id}>
+            <h4>{nweet.text}</h4>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

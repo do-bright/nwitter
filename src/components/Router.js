@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   HashRouter as Router,
   Redirect,
   Route,
-  Siwtch,
   Switch,
 } from "react-router-dom";
 import Auth from "routes/Auth";
