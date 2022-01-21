@@ -11,7 +11,7 @@ import Home from "routes/Home";
 import Profile from "routes/Profile";
 import Navigation from "components/Navigation";
 
-const AppRouter = ({ isLoggedIn }) => {
+const AppRouter = ({ isLoggedIn, userObj }) => {
   //const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     // && ; Navigation이 존재하려면 isLoggedIn이 true 여야 함 = True 일 때 이게 존재
@@ -21,7 +21,7 @@ const AppRouter = ({ isLoggedIn }) => {
         {isLoggedIn ? (
           <>
             <Route exact path="/">
-              <Home />
+              <Home userObj={userObj} />
             </Route>
             <Route exact path="/profile">
               <Profile />
